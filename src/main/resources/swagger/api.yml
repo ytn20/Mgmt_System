@@ -1,0 +1,556 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: Student
+  description: This service will provide the management of the student data.
+
+paths:
+  /student:
+    post:
+      tags:
+        - Student
+      summary: Create an student
+      description: Create an student
+      operationId: createStudent
+      requestBody:
+        description: Create a new student
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: StudentResponse
+                oneOf:
+                  - $ref: '#/components/schemas/Student'
+                  - $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Student not created. Exception encountered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+        - Student
+      summary: Find all student
+      description: Find all student
+      operationId: findStudent
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: StudentListResponse
+                oneOf:
+                  - $ref: '#/components/schemas/StudentList'
+                  - $ref: '#/components/schemas/ErrorResponse'
+  /student/{studentId}:
+    get:
+      tags:
+        - Student
+      summary: Find student by ID
+      description: Find student by ID
+      operationId: findStudentById
+      parameters:
+        - name: studentId
+          in: path
+          description: ID of student to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: StudentResponse
+                oneOf:
+                  - $ref: '#/components/schemas/Student'
+                  - $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Student not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      tags:
+        - Student
+      summary: Update an student
+      description: Update an student
+      operationId: updateStudent
+      parameters:
+        - name: studentId
+          in: path
+          description: ID of student to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update a student
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: StudentResponse
+                oneOf:
+                  - $ref: '#/components/schemas/Student'
+                  - $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Student not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Student not updated. Exception encountered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Student
+      summary: Find student by ID
+      description: Find student by ID
+      operationId: deleteStudentById
+      parameters:
+        - name: studentId
+          in: path
+          description: ID of student to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: StudentResponse
+                oneOf:
+                  - $ref: '#/components/schemas/Student'
+                  - $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Invalid student ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Student not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /student/{studentId}/contact:
+    post:
+      tags:
+        - StudentContact
+      summary: Create an student contact
+      description: Create an student contact
+      operationId: createStudentContact
+      parameters:
+        - name: studentId
+          in: path
+          description: ID of student to add contact to
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Create a new contact
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: ContactResponse
+                oneOf:
+                  - $ref: '#/components/schemas/Contact'
+                  - $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Student not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Contact not created. Exception encountered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+        - StudentContact
+      summary: Find contacts by student ID
+      description: Find contacts by student ID
+      operationId: findStudentContacts
+      parameters:
+        - name: studentId
+          in: path
+          description: ID of student to filter contacts
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: ContactListResponse
+                oneOf:
+                  - $ref: '#/components/schemas/ContactList'
+                  - $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Student not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /contact:
+    get:
+      tags:
+        - Contact
+      summary: Find all contacts
+      description: Find all contacts
+      operationId: findContacts
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: ContactListResponse
+                oneOf:
+                  - $ref: '#/components/schemas/ContactList'
+                  - $ref: '#/components/schemas/ErrorResponse'
+  /contact/{contactId}:
+    get:
+      tags:
+        - Contact
+      summary: Find contact by ID
+      description: Find contact by ID
+      operationId: findContactById
+      parameters:
+        - name: contactId
+          in: path
+          description: ID of contact to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: ContactResponse
+                oneOf:
+                  - $ref: '#/components/schemas/Contact'
+                  - $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Contact not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      tags:
+        - Contact
+      summary: Update a contact
+      description: Update a contact
+      operationId: updateContact
+      parameters:
+        - name: contactId
+          in: path
+          description: ID of contact to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update a contact
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: ContactResponse
+                oneOf:
+                  - $ref: '#/components/schemas/Contact'
+                  - $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Contact not updated. Exception encountered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Contact
+      summary: Delete a contact
+      description: Delete a contact
+      operationId: deleteContact
+      parameters:
+        - name: contactId
+          in: path
+          description: ID of contact to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: ContactResponse
+                oneOf:
+                  - $ref: '#/components/schemas/Contact'
+                  - $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Contact not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Contact not deleted. Exception encountered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    FeatureType:
+      type: string
+      enum:
+        [
+          ORGANIZATION,
+          INSTITUTION,
+          GOVERNMENT_ENTITY,
+          AGENCY,
+          COMPANY,
+          PROFESSIONAL_SERVICES_FIRM,
+          NONPROFIT_ORGANIZATION,
+          SMALL_BUSINESS,
+          STORE,
+          INDIVIDUAL,
+        ]
+    IndustryType:
+      type: string
+      enum:
+        [
+          ADMINISTRATION,
+          ACCOMMODATION_FOOD_SERVICES,
+          CONSTRUCTION,
+          ENTERTAINMENT_RECREATION,
+          EDUCATIONAL_SERVICES,
+          FINANCE_INSURANCE,
+          HEALTHCARE,
+          INFORMATION_TECHNOLOGY,
+          MANUFACTURING,
+          TRANSPORTATION_WAREHOUSING,
+          REAL_ESTATE,
+          OTHER_SERVICES,
+        ]
+    Country:
+      type: string
+      enum: [CANADA, UNITED_STATES]
+    ContactType:
+      type: string
+      enum: [PRIMARY, SECONDARY]
+    Status:
+      type: string
+      enum: [ACTIVE, SUSPENDED]
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        organizationName:
+          type: string
+          example: 123456 Ontario Inc.
+        FeatureType:
+          $ref: '#/components/schemas/FeatureType'
+        industryType:
+          $ref: '#/components/schemas/IndustryType'
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+        country:
+          $ref: '#/components/schemas/Country'
+        postalZipCode:
+          type: string
+          example: L5N8C5
+        status:
+          $ref: '#/components/schemas/Status'
+        rating:
+          type: integer
+          format: int32
+          example: 5
+    StudentBasic:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        organizationName:
+          type: string
+          example: 123456 Ontario Inc.
+        FeatureType:
+          $ref: '#/components/schemas/FeatureType'
+        industryType:
+          $ref: '#/components/schemas/IndustryType'
+        country:
+          $ref: '#/components/schemas/Country'
+        postalZipCode:
+          type: string
+          example: L5N8C5
+        status:
+          $ref: '#/components/schemas/Status'
+        rating:
+          type: integer
+          format: int32
+          example: 5
+    StudentList:
+      type: array
+      items:
+        $ref: '#/components/schemas/StudentBasic'
+    Contact:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 400
+        contactType:
+          $ref: '#/components/schemas/ContactType'
+        contactNumber:
+          type: string
+          example: 4165431234
+        contactEmail:
+          type: string
+          example: jane@fractal.com
+        firstName:
+          type: string
+          example: Jane
+        lastName:
+          type: string
+          example: Robertson
+    ContactList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Contact'
+    ErrorResponse:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          format: int32
+          example: 400
+        appId:
+          type: string
+          example: EMS-S2
+        dateTime:
+          type: string
+          example: 2022-11-29T18:34:39.793+00:00
+        message:
+          type: string
+          example: Sample error message.
+  securitySchemes:
+    jwt:
+      type: http
+      description: JWT Authentication
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - jwt: []
