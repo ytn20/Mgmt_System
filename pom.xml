@@ -65,6 +65,11 @@
 			<version>21.0.1</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>${jackson-databind-nullable.version}</version>
+		</dependency>
 
 	</dependencies>
 
