@@ -67,8 +67,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openapitools</groupId>
-			<artifactId>jackson-databind-nullable</artifactId>
-			<version>${jackson-databind-nullable.version}</version>
+			<artifactId>openapi-generator</artifactId>
+			<version>6.2.1</version>
 		</dependency>
 
 	</dependencies>
