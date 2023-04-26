@@ -1,6 +1,9 @@
 package com.student.api.student.service.mapper;
-
 import com.student.api.student.domain.Student;
+
+
+//Mapper
+@Mapper(componentModel = "spring")
 
 public interface StudentMapper {
 
