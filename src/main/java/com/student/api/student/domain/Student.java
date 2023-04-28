@@ -1,12 +1,17 @@
 package com.student.api.student.domain;
-
-
 import com.student.api.student.domain.enumeration.FeatureType;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import org.jetbrains.annotations.NotNull;
+import java.io.Serializable;
 
-public class Student {
+@Entity
+@Table(name= "Student")
+
+public class Student implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
 
     private String student_name;
     private Long student_id;
@@ -67,8 +72,6 @@ public class Student {
                 ", Feature Type=" + featureType +
                 '}';
      }
-
-
 
 
 }
