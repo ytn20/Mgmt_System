@@ -101,10 +101,7 @@
 			<artifactId>jackson-datatype-hibernate5</artifactId>
 		</dependency>
 
-
-
 	</dependencies>
-
 
 	<build>
 		<plugins>
@@ -171,7 +168,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 
 		</plugins>
 	</build>
